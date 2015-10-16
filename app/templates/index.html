@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ProCode</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="icon" href="../../favicon.ico">-->
+    
+    <link rel=stylesheet href="static/CodeMirror/doc/docs.css">
+    <link rel="stylesheet" href="static/CodeMirror/lib/codemirror.css">
+    <script src="static/CodeMirror/lib/codemirror.js"></script>
+    <script src="static/CodeMirror/mode/xml/xml.js"></script>
+
+    <link rel="stylesheet" href="static/CodeMirror/lib/codemirror.css">
+    <link rel="stylesheet" href="static/CodeMirror/addon/scroll/simplescrollbars.css">
+    <script src="static/CodeMirror/lib/codemirror.js"></script>
+    <script src="static/CodeMirror/mode/markdown/markdown.js"></script>
+    <script src="static/CodeMirror/mode/xml/xml.js"></script>
+    <script src="static/CodeMirror/addon/scroll/simplescrollbars.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        .fit {
+           max-width: 95%;
+       }
+
+        .fitpic {
+           max-width: 80%;
+       }
+
+        .CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}
+        .CodeMirror pre > * { text-indent: 0px; }
+
+    </style>
+
+    <!-- Pygments style -->
+    <style type='text/css'>
+	/*.highlight .hll { background-color: #ffffcc }
+	.highlight  { background: #f8f8f8; }*/
+	.highlight .c { color: #408080; font-style: italic } /* Comment */
+	.highlight .err { border: 1px solid #FF0000 } /* Error */
+	.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+	.highlight .o { color: #666666 } /* Operator */
+	.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+	.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+	.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+	.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+	.highlight .gd { color: #A00000 } /* Generic.Deleted */
+	.highlight .ge { font-style: italic } /* Generic.Emph */
+	.highlight .gr { color: #FF0000 } /* Generic.Error */
+	.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+	.highlight .gi { color: #00A000 } /* Generic.Inserted */
+	.highlight .go { color: #888888 } /* Generic.Output */
+	.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+	.highlight .gs { font-weight: bold } /* Generic.Strong */
+	.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+	.highlight .gt { color: #0044DD } /* Generic.Traceback */
+	.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+	.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+	.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+	.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+	.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+	.highlight .kt { color: #B00040 } /* Keyword.Type */
+	.highlight .m { color: #666666 } /* Literal.Number */
+	.highlight .s { color: #BA2121 } /* Literal.String */
+	.highlight .na { color: #7D9029 } /* Name.Attribute */
+	.highlight .nb { color: #008000 } /* Name.Builtin */
+	.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+	.highlight .no { color: #880000 } /* Name.Constant */
+	.highlight .nd { color: #AA22FF } /* Name.Decorator */
+	.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+	.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+	.highlight .nf { color: #0000FF } /* Name.Function */
+	.highlight .nl { color: #A0A000 } /* Name.Label */
+	.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+	.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+	.highlight .nv { color: #19177C } /* Name.Variable */
+	.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+	.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+	.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+	.highlight .mf { color: #666666 } /* Literal.Number.Float */
+	.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+	.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+	.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+	.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+	.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+	.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+	.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+	.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+	.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+	.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+	.highlight .sx { color: #008000 } /* Literal.String.Other */
+	.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+	.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+	.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+	.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+	.highlight .vc { color: #19177C } /* Name.Variable.Class */
+	.highlight .vg { color: #19177C } /* Name.Variable.Global */
+	.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+	.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+    </style>
+
+    <!-- CodeMirror -->
+    <link rel=stylesheet href="static/CodeMirror/doc/docs.css">
+    <link rel="stylesheet" href="static/CodeMirror/lib/codemirror.css">
+    <script src="static/CodeMirror/lib/codemirror.js"></script>
+    <script src="static/CodeMirror/addon/mode/loadmode.js"></script>
+    <script src="static/CodeMirror/mode/meta.js"></script>
+    <style type="text/css">
+      .CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black; text-align: left; }
+    </style>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+
+    <script type='text/javascript'>
+        function check_form(){
+            valid = true;
+            if(document.getElementById("language").value==''){
+               valid = false;
+               document.getElementById('message').innerHTML = '<font color="red">Please select a language!</font>'
+             }else if(document.getElementById("rawsourcecodeurl").value.length==0){
+               valid = false;
+               document.getElementById('message').innerHTML = '<font color="red">Please enter a URL to raw source code!</font>'
+             }return valid;
+        }
+    </script>
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">ProCode</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+  <div class="container">
+    <div class="starter-template"><br><br>
+   <div align='center'><img src="static/logo.jpg" class="fitpic" alt="ProCode"/></div><br><br>
+  <table align='center' class="fit">
+        <tr><td align='center' nowrap> 
+       <form  action="/index" method="GET" class="fit" onSubmit="return check_form()">
+        <div class="form-group">
+          <div><h2>Analyze the   
+                   <select autocomplete="off" id='language' name='language' onchange="change_codemirror_mode(get_mode_val(this.value))"> 
+                           <option value="" disabled selected>Select me!</option>
+                           {% for lang in languages_supported %}
+                                <option id="{{ lang[languages_supported_name_pos] }}" name="{{ lang[languages_supported_name_pos] }}" value="{{ lang[languages_supported_name_pos] }}" >{{ lang[languages_supported_name_pos] }}</option>
+                           {% endfor %}
+                   </select>
+                   source code at
+          </h2></div><div>
+          <input type="text" name="rawsourcecodeurl" id="rawsourcecodeurl" class="fit" size="100" placeholder="URL of source code text ... e.g. https://raw.githubusercontent.com/..."><br>
+          <br><br><br></div><div>
+          <button type="submit" class="btn btn-default btn-lg">procode.run</button></div>
+       </div>
+      </form>
+      <br>
+      <label id='message' name='message' value=''><font color="Red">{{ msg }}</font></label>
+   <br> Optimized for Firefox Mozilla 40.0.3. <br>
+
+      {% if origsource != None %}{% if origsource|length > 0 %}   
+            <br><br><textarea id="sourcecode" name="sourcecode" height="200px" >{% if origsource != None %}{% if origsource|length > 0 %}{{ origsource }}{% else %}{% endif %}{% endif %}</textarea>
+      {% endif %}{% endif %}
+
+</td>
+</tr>
+<tr>
+<td align="center">
+   	<br><br> 
+</td></tr><tr><td>
+       <!-- -->
+       {% if matrix_of_stats != None %}
+         <table class="table table-hover" border="0" align="center" cellpadding="3" cellspacing="1" class="fit" >
+          {% set numcols = matrix_of_stats[0]|length %}
+
+          <tr><td colspan={{numcols}}><h1><u>Language:</u> {{currlanguage}} &nbsp;&nbsp;|&nbsp;&nbsp;<u>Code Quality:</u>
+               {% if predicted_num == PRO_CODE_CONSTANT_NUM %}
+                  <font color='green'>Professional</font>  &nbsp;&nbsp;|&nbsp;&nbsp;<u>Score:</u> <font color='green'>{{scorestr}}</font>
+               {% else %}
+                  <font color='red'>Student</font>  &nbsp;&nbsp;|&nbsp;&nbsp;<u>Score:</u> <font color='red'>{{scorestr}}</font>
+              {% endif %} </font>
+              </h1><br></td></tr>
+
+          {% for row in matrix_of_stats %}
+             {% set outer_loop = loop %}
+                  <tr>
+                {% for val in row %}
+
+                          {% if loop.index0!=numcols-1 %}
+                               <td>
+                         	{% if outer_loop.index0==0 %}
+                          	    <h4>
+                         	{% endif %}
+                          	  {% if loop.index0==0 or outer_loop.index0==0 %}
+                         	     <b>
+                          	  {% endif %}
+
+                          	     {{val|safe}}
+
+                          	  {% if loop.index0==0 or outer_loop.index0==0 %}
+                          	    </b>
+                         	   {% endif %}
+                        	 {% if outer_loop.index0==0 %}
+                         	     </h4>
+                        	 {% endif %}
+                             </td>
+                          {% else %} 
+                              </tr>
+                              {% if val != None %}
+                                   <tr><td></td><td></td><td colspan={{numcols}}>{{val|safe}}<br><br></td></tr>
+                              {% endif %}
+                          {% endif %}
+                {% endfor %}
+          {% endfor %}
+        </table>
+      {% endif %}
+       </td>
+      </tr>
+     </table>
+
+
+
+    <script type='text/javascript'>
+       {% if currrawsourcecodeurl != None and currrawsourcecodeurl != '' %}
+         document.getElementById('rawsourcecodeurl').value = '{{ currrawsourcecodeurl }}'
+       {% endif %}
+      
+
+       {% if currlanguage != None and currlanguage != '' %}
+         document.getElementById('{{currlanguage}}').selected = true;
+       {% endif %}
+
+	CodeMirror.modeURL = "static/CodeMirror/mode/%N/%N.js";
+	/*var editor = CodeMirror.fromTextArea(document.getElementById("sourcecode"), {
+	  lineNumbers: true,
+          lineWrapping: true
+	});*/
+
+
+      var editor = CodeMirror.fromTextArea(document.getElementById("sourcecode"), {
+        lineNumbers: true,
+        lineWrapping: true,
+      });
+      var charWidth = editor.defaultCharWidth(), basePadding = 4;
+      editor.on("renderLine", function(cm, line, elt) {
+        var off = CodeMirror.countColumn(line.text, null, cm.getOption("tabSize")) * charWidth;
+        elt.style.textIndent = "-" + off + "px";
+        elt.style.paddingLeft = (basePadding + off) + "px";
+      });
+      editor.refresh();
+
+
+
+
+	var modeInput = '{{currlanguage_codemirror_mode}}';
+
+
+	function change_codemirror_mode(modeval) {
+          if(modeval == null || modeval == '') modeval='text/x-sh';
+	  var val = modeval, m, mode, spec;
+	  if (m = /.+\.([^.]+)$/.exec(val)) {
+	    var info = CodeMirror.findModeByExtension(m[1]);
+	    if (info) {
+	      mode = info.mode;
+	      spec = info.mime;
+	    }
+	  } else if (/\//.test(val)) {
+	    var info = CodeMirror.findModeByMIME(val);
+	    if (info) {
+	      mode = info.mode;
+	      spec = val;
+	    }
+	  } else {
+	    mode = spec = val;
+	  }
+	  if (mode) {
+	    editor.setOption("mode", spec);
+	    CodeMirror.autoLoadMode(editor, mode);
+	    //document.getElementById("modeinfo").textContent = spec;
+	  } else {
+	    //alert("Could not find a mode corresponding to " + val);
+	  }
+	}
+        
+        change_codemirror_mode(modeInput)
+
+        function get_mode_val(lang_name){
+            mode = ''
+            {% for lang in languages_supported %}
+                 if(lang_name == '{{lang[languages_supported_name_pos]}}') {
+                    mode = '{{lang[languages_supported_mode_pos]}}';
+                 }
+            {% endfor %}
+            return mode;
+        }
+
+</script>
+
+      </div>
+    
+  </div> <!-- /.container--> 
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+   <script src="static/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

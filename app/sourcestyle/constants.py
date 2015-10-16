@@ -1,0 +1,59 @@
+#!/usr/bin/python2.7 -tt
+
+MODE_LOG_FEATURES_ON_FNS = 1
+MODE_RETURN_PREDICTION_ON_SOURCE = 2
+
+
+MODEL_FN = 'analysis/AWSclassifier.pkl'
+GOOD_CSV = '../output/09292015/features_top_star_09302015.csv'
+BAD_CSV = '../output/09292015/features_ac_cw_cl_sch_09302015.csv'
+CLASSIFY_BY_ONLY_COLS = ['identifier_avg_length', 'count_small_identifier_percent', 'identifier_creativity_uppercase_underscore_percent', 'orig_dup_mean_div_count', 'xp_dup_mean_div_count', 'generality_flag']
+
+
+C_LANGUAGE = 'C'
+PYTHON_LANGUAGE = 'Python'
+C_INFO = [C_LANGUAGE,['C'],'text/x-csrc']
+PYTHON_INFO = [PYTHON_LANGUAGE,['PY'],'python']
+LANGUAGES_SUPPORTED = { C_LANGUAGE: C_INFO, PYTHON_LANGUAGE: PYTHON_INFO }
+
+LANGUAGES_SUPPORTED_NAME = 0
+LANGUAGES_SUPPORTED_EXTENSIONS = 1
+LANGUAGES_SUPPORTED_CODEMIRROR_MODE = 2
+
+
+ERROR_LANGUAGE_NOT_SUPPORTED = 200
+
+
+PRO_CODE_PREDICTION = 1
+ACADEMIC_CODE_PREDICTION = 0
+
+LESS_THAN = -1
+GREATER_THAN = 1
+EQUAL_TO = 0
+
+MIN_SOURCECODE_SIZE = 1
+MAX_SOURCECODE_SIZE = 100000
+
+COPY_PASTE_MOST_PROS_SCORE = (LESS_THAN, 0.00390149726841)
+COPY_PASTE_REPLACE_MOST_PROS_SCORE = (LESS_THAN, 0.0188131830248)
+SMALL_IDENTIFIER_PERCENT_PROS_SCORE = (LESS_THAN, 0.205418611517)
+IDENTIFIER_CREATIVITY_PROS_SCORE = (GREATER_THAN, 0.606753164395)
+COMMENT_LINES_DIV_ORIG_LOC_PROS_SCORE = (GREATER_THAN, 0.186042127214)
+MAGIC_NUMBERS_PER_NUMBER_PROS_SCORE = (LESS_THAN, 0.10)#(LESS_THAN, 0.26136766405)
+GENERALITY_FLAG_PROS_SCORE = (EQUAL_TO, 1)
+
+
+# is number1 EQ_LT_GT_CONSTANT number2?
+def is_condition_met(number1, EQ_LT_GT_CONSTANT, number2):
+  met = False
+  if EQ_LT_GT_CONSTANT==EQUAL_TO:
+    if number1 == number2:
+      met = True
+  elif EQ_LT_GT_CONSTANT==GREATER_THAN:
+    if number1 > number2:
+      met = True
+  elif EQ_LT_GT_CONSTANT==LESS_THAN:
+    if number1 < number2:
+      met = True
+  return met
+
